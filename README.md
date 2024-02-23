@@ -1,6 +1,6 @@
 # Eventhubs
 
-This Terraform module facilitates the setup and management of event hub resources on Azure, providing flexible configurations for namespace creation and event hub instances. It ensures a robust and scalable messaging platform in the cloud, designed to handle massive amounts of event data in real-time.
+This Terraform module facilitates the setup and management of event hub resources on azure, providing flexible configurations for namespace creation and event hub instances. It ensures a robust and scalable messaging platform in the cloud, designed to handle massive amounts of event data in real-time.
 
 ## Goals
 
@@ -14,12 +14,12 @@ A last key goal is to separate logic from configuration in the module, thereby e
 
 ## Features
 
-- simplifies managing multiple event hubs for varied streaming requirements
-- supports multiple schema groups for consistent event data structuring.
+- simplifies managing multiple event hubs
+- supports multiple schema groups for consistent event data structuring
 - streamlines setup of multiple consumer groups
-- enables clustering with multiple namespaces for improved scalability and isolation.
-- supports setting up various authorization rules for detailed access control.
-- utilization of terratest for robust validation.
+- enables clustering with multiple namespaces
+- supports setting up various authorization rules for detailed access control
+- utilization of terratest for robust validation
 
 ## Requirements
 
@@ -33,6 +33,12 @@ A last key goal is to separate logic from configuration in the module, thereby e
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.61 |
+
+## Modules
+
+| Name | Source |
+|------|--------|
+| [cluster](./modules/cluster) | resource |
 
 ## Resources
 

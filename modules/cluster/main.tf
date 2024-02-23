@@ -1,3 +1,4 @@
+# cluster
 resource "azurerm_eventhub_cluster" "cluster" {
   name                = var.cluster.name
   resource_group_name = var.resourcegroup

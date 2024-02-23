@@ -18,23 +18,23 @@ module "rg" {
 }
 
 module "eventhubs" {
-  #source  = "cloudnationhq/evh/azure"
-  #version = "~> 0.1"
-  source = "../.."
+  source  = "cloudnationhq/evh/azure"
+  version = "~> 0.1"
 
   for_each = local.namespaces
 
   namespace = each.value
 }
 
-module "eventhub_cluster" {
-  source = "../../modules/cluster"
+module "cluster" {
+  source = "cloudnationhq/evh/azure/modules/cluster"
+  version = "~> 0.1"
 
   resourcegroup = module.rg.groups.demo.name
   location      = module.rg.groups.demo.location
 
   cluster = {
-    name = "evhc-demo-prd"
+    name = "evhc-demo-dev"
     sku  = "Dedicated_1"
   }
 }
