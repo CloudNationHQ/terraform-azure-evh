@@ -5,7 +5,7 @@ This example demonstrates orchestrating a cluster composed of multiple namespace
 ```hcl
 module "eventhubs" {
   source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   for_each = local.namespaces
 
