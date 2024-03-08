@@ -1,9 +1,8 @@
 # namespace
 resource "azurerm_eventhub_namespace" "ns" {
-  name                = var.namespace.name
-  location            = var.namespace.location
-  resource_group_name = var.namespace.resourcegroup
-
+  name                          = var.namespace.name
+  resource_group_name           = coalesce(lookup(var.namespace, "resourcegroup", null), var.resourcegroup)
+  location                      = coalesce(lookup(var.namespace, "location", null), var.location)
   sku                           = try(var.namespace.sku, "Standard")
   capacity                      = try(var.namespace.capacity, 1)
   zone_redundant                = try(var.namespace.zone_redundant, false)
@@ -13,7 +12,7 @@ resource "azurerm_eventhub_namespace" "ns" {
   network_rulesets              = try(var.namespace.network_rulesets, [])
   local_authentication_enabled  = try(var.namespace.local_authentication_enabled, false)
   public_network_access_enabled = try(var.namespace.public_network_access_enabled, true)
-  tags                          = try(var.namespace.tags, {})
+  tags                          = try(var.namespace.tags, var.tags, null)
 
   lifecycle {
     ignore_changes = [
