@@ -28,4 +28,14 @@ locals {
       schema_compatibility = "Forward"
     }
   }
+  authorization_rules = {
+    users = {
+      listen = true
+    }
+    admins = {
+      listen = true
+      send   = true
+      manage = true
+    }
+  }
 }
