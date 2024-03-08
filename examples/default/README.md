@@ -5,7 +5,7 @@ This example illustrates the default eventhub namespace setup, in its simplest f
 ```hcl
 module "eventhub" {
   source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   namespace = {
     name          = module.naming.eventhub_namespace.name

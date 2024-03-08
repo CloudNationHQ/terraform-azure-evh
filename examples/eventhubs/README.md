@@ -5,7 +5,7 @@ This example showcases managing event hubs
 ```hcl
 module "eventhub" {
   source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   naming = local.naming
 
