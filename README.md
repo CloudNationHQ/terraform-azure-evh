@@ -49,6 +49,7 @@ A last key goal is to separate logic from configuration in the module, thereby e
 | [azurerm_eventhub_namespace](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) | resource |
 | [azurerm_eventhub_namespace_authorization_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_auth) | resource |
 | [azurerm_eventhub_namespace_schema_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) | resource |
+| [azurerm_eventhub_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_cluster) | resource |
 
 ## Inputs
 
@@ -56,6 +57,9 @@ A last key goal is to separate logic from configuration in the module, thereby e
 | :-- | :-- | :-- | :-- |
 | `namespace` | contains eventhub namespace configuration | object | yes |
 | `naming` | used for naming purposes | string | yes |
+| `location` | default azure region tho be used | string | no |
+| `resourcegroup` | default resource group to be used | string | no |
+| `tags` | tags to be added to the resources | map(string) | no |
 
 ## Outputs
 
