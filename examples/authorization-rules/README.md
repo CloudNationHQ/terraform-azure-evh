@@ -5,7 +5,7 @@ This example illustrates setting up authorization rules on namespaces.
 ```hcl
 module "eventhub" {
   source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   naming = local.naming
 
