@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.3.0...v0.3.1) (2024-06-14)
+
+
+### Bug Fixes
+
+* add event hub authorization rule abbreviation in complete usage ([#18](https://github.com/CloudNationHQ/terraform-azure-evh/issues/18)) ([610f48b](https://github.com/CloudNationHQ/terraform-azure-evh/commit/610f48bd9469d457fca3e363206f1c28e83c2b23))
+
 ## [0.3.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.2.0...v0.3.0) (2024-06-14)
 
 
