@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.2.0...v0.3.0) (2024-06-14)
+
+
+### Features
+
+* updated usage documenation and added type definitions ([#14](https://github.com/CloudNationHQ/terraform-azure-evh/issues/14)) ([e5e88ec](https://github.com/CloudNationHQ/terraform-azure-evh/commit/e5e88ec948a9b876b83a80ab30adf1404f0ca936))
+
 ## [0.2.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.1.0...v0.2.0) (2024-06-07)
 
 
