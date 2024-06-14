@@ -29,8 +29,14 @@ module "eventhub" {
     resourcegroup = module.rg.groups.demo.name
 
     eventhubs = {
-      alerts  = { partition_count = 2, message_retention = 1 }
-      metrics = { partition_count = 4, message_retention = 2 }
+      alerts = {
+        partition_count   = 2
+        message_retention = 1
+      }
+      metrics = {
+        partition_count   = 4
+        message_retention = 2
+      }
     }
   }
 }

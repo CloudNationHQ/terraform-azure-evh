@@ -1,23 +1,18 @@
-This example showcases managing event hubs
+# Event Hubs
 
-## Usage
+This deploys one or more event hubs
+
+## Types
 
 ```hcl
-module "eventhub" {
-  source  = "cloudnationhq/evh/azure"
-  version = "~> 0.2"
+namespace = object({
+  name          = string
+  location      = string
+  resourcegroup = string
 
-  naming = local.naming
-
-  namespace = {
-    name          = module.naming.eventhub_namespace.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-
-    eventhubs = {
-      alerts  = { partition_count = 2, message_retention = 1 }
-      metrics = { partition_count = 4, message_retention = 2 }
-    }
-  }
-}
+  eventhubs = optional(map(object({
+    partition_count   = number
+    message_retention = number
+  })))
+})
 ```
