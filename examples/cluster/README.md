@@ -1,52 +1,20 @@
-This example demonstrates orchestrating a cluster composed of multiple namespaces.
+# Cluster
 
-## Usage
+This deploys a cluster with multiple namespaces.
 
-```hcl
-module "eventhubs" {
-  source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
-
-  for_each = local.namespaces
-
-  namespace = each.value
-}
-```
-
-The module uses a local to iterate, generating a namespace for each key.
+## Types
 
 ```hcl
-locals {
-  namespaces = {
-    prd = {
-      name                 = "evhn-demo-prd-001"
-      location             = module.rg.groups.demo.location
-      resourcegroup        = module.rg.groups.demo.name
-      dedicated_cluster_id = module.cluster.instance.id
-    }
-    dev = {
-      name                 = "evhn-demo-dev-001"
-      location             = module.rg.groups.demo.location
-      resourcegroup        = module.rg.groups.demo.name
-      dedicated_cluster_id = module.cluster.instance.id
-    }
-  }
-}
+type = object({
+  resourcegroup = string
+  location      = string
+  cluster = object({
+    name = string
+    sku  = string
+  })
+})
 ```
 
-The cluster itself can be utilized via a submodule.
+## Notes
 
-```hcl
-module "cluster" {
-  source = "cloudnationhq/evh/azure/modules/cluster"
-  version = "~> 0.1"
-
-  resourcegroup = module.rg.groups.demo.name
-  location      = module.rg.groups.demo.location
-
-  cluster = {
-    name = "evhc-demo-prd"
-    sku  = "Dedicated_1"
-  }
-}
-```
+The cluster, which is optionally configured above one or more namespaces, is managed through a submodule to enhance modularity.

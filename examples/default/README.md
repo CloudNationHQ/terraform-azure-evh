@@ -1,16 +1,13 @@
-This example illustrates the default eventhub namespace setup, in its simplest form.
+# Default
 
-## Usage
+This example illustrates the default setup, in its simplest form.
+
+## Types
 
 ```hcl
-module "eventhub" {
-  source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
-
-  namespace = {
-    name          = module.naming.eventhub_namespace.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-  }
-}
+namespace = object({
+  name          = string
+  location      = string
+  resourcegroup = string
+})
 ```

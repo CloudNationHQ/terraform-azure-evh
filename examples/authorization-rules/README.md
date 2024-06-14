@@ -1,29 +1,20 @@
-This example illustrates setting up authorization rules on namespaces.
+# Authorization Rules
 
-## Usage
+This deploys a eventhub setting up authorization rules on namespaces.
+
+## Types
 
 ```hcl
-module "eventhub" {
-  source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
+namespace = object({
+  name          = string
+  location      = string
+  resourcegroup = string
 
-  naming = local.naming
-
-  namespace = {
-    name          = module.naming.eventhub_namespace.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-
-    authorization_rules = {
-      users = {
-        listen = true
-      }
-      admins = {
-        listen = true
-        send   = true
-        manage = true
-      }
-    }
-  }
-}
+  authorization_rules = optional(map(object({
+    name   = optional(string)
+    listen = optional(bool, false)
+    send   = optional(bool, false)
+    manage = optional(bool, false)
+  })))
+})
 ```
