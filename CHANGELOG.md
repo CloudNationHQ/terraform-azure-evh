@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.4.0...v0.5.0) (2024-07-31)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#26](https://github.com/CloudNationHQ/terraform-azure-evh/issues/26)) ([56a679d](https://github.com/CloudNationHQ/terraform-azure-evh/commit/56a679d6bc56e7a531b6f7b5ac11b42bd0bca6ea))
+* update contribution docs ([#24](https://github.com/CloudNationHQ/terraform-azure-evh/issues/24)) ([14345ea](https://github.com/CloudNationHQ/terraform-azure-evh/commit/14345ead57dc237168ab502f7fef9ba0b399485c))
+* update documentation ([#27](https://github.com/CloudNationHQ/terraform-azure-evh/issues/27)) ([36a01f8](https://github.com/CloudNationHQ/terraform-azure-evh/commit/36a01f8a4fb7d50c45a59d5e48feeb4e1635f8f4))
+
 ## [0.4.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.3.1...v0.4.0) (2024-07-02)
 
 
