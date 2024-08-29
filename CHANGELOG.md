@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.6.0...v1.0.0) (2024-08-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* * data structure has changed due to renaming of properties.
+
+### Features
+
+* aligned several properties ([#31](https://github.com/CloudNationHQ/terraform-azure-evh/issues/31)) ([11815ee](https://github.com/CloudNationHQ/terraform-azure-evh/commit/11815ee793932708295f78dc5335f9bd27caa25f))
+
 ## [0.6.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.5.0...v0.6.0) (2024-08-29)
 
 
