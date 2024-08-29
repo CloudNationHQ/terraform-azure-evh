@@ -44,12 +44,12 @@ resource "azurerm_eventhub_namespace_authorization_rule" "auth" {
   manage = try(each.value.manage, false)
 }
 
-resource "azurerm_eventhub_authorization_rule" "evh_auth" {
+resource "azurerm_eventhub_authorization_rule" "auth" {
   for_each = try(var.namespace.eventhubs.authorization_rules, {})
 
-  name                = try(each.value.name, join("-", [var.naming.eventhub_namespace_authorization_rule, each.key]))
+  name                = try(each.value.name, join("-", [var.naming.eventhub_authorization_rule, each.key]))
   namespace_name      = azurerm_eventhub_namespace.ns.name
-  eventhub_name       = azurerm_eventhub.evh.name
+  eventhub_name       = azurerm_eventhub.evh[each.key].name
   resource_group_name = var.namespace.resourcegroup
 
   listen = try(each.value.listen, false)
