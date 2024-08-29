@@ -6,8 +6,8 @@ This example illustrates the default setup, in its simplest form.
 
 ```hcl
 namespace = object({
-  name          = string
-  location      = string
-  resourcegroup = string
+  name           = string
+  location       = string
+  resource_group = string
 })
 ```

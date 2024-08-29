@@ -6,9 +6,9 @@ This deploys one or more event hubs
 
 ```hcl
 namespace = object({
-  name          = string
-  location      = string
-  resourcegroup = string
+  name           = string
+  location       = string
+  resource_group = string
 
   eventhubs = optional(map(object({
     partition_count   = number

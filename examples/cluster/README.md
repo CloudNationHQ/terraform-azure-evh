@@ -6,8 +6,8 @@ This deploys a cluster with multiple namespaces.
 
 ```hcl
 type = object({
-  resourcegroup = string
-  location      = string
+  resource_group = string
+  location       = string
   cluster = object({
     name = string
     sku  = string

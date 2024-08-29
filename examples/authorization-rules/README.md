@@ -6,9 +6,9 @@ This deploys a eventhub setting up authorization rules on namespaces.
 
 ```hcl
 namespace = object({
-  name          = string
-  location      = string
-  resourcegroup = string
+  name           = string
+  location       = string
+  resource_group = string
 
   authorization_rules = optional(map(object({
     name   = optional(string)
