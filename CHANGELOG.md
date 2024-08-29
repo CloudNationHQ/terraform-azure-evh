@@ -5,11 +5,18 @@
 
 ### ⚠ BREAKING CHANGES
 
-* * data structure has changed due to renaming of properties.
+* data structure has changed due to renaming of properties.
 
 ### Features
 
 * aligned several properties ([#31](https://github.com/CloudNationHQ/terraform-azure-evh/issues/31)) ([11815ee](https://github.com/CloudNationHQ/terraform-azure-evh/commit/11815ee793932708295f78dc5335f9bd27caa25f))
+
+### Upgrade from v0.6.0 to v1.0.0:
+
+- Update module reference to: `version = "~> 1.0"`
+- Change properties in namespace object:
+  - resourcegroup -> resource_group
+  - zone_redundant -> deprecated
 
 ## [0.6.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v0.5.0...v0.6.0) (2024-08-29)
 
