@@ -6,9 +6,9 @@ This deploys schema groups within namespaces
 
 ```hcl
 namespace = object({
-  name          = string
-  location      = string
-  resourcegroup = string
+  name           = string
+  location       = string
+  resource_group = string
 
   schema_groups = optional(map(object({
     schema_type          = string

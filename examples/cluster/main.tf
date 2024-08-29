@@ -7,19 +7,19 @@ module "naming" {
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 0.1"
+  version = "~> 1.0"
 
   groups = {
     demo = {
-      name   = module.naming.resource_group.name
-      region = "westeurope"
+      name     = module.naming.resource_group.name
+      location = "westeurope"
     }
   }
 }
 
 module "eventhubs" {
   source  = "cloudnationhq/evh/azure"
-  version = "~> 0.1"
+  version = "~> 1.0"
 
   for_each = local.namespaces
 
@@ -28,10 +28,10 @@ module "eventhubs" {
 
 module "cluster" {
   source  = "cloudnationhq/evh/azure/modules/cluster"
-  version = "~> 0.1"
+  version = "~> 1.0"
 
-  resourcegroup = module.rg.groups.demo.name
-  location      = module.rg.groups.demo.location
+  resource_group = module.rg.groups.demo.name
+  location       = module.rg.groups.demo.location
 
   cluster = {
     name = "evhc-demo-dev"

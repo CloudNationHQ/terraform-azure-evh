@@ -27,7 +27,7 @@ This submodule demonstrates managing event hub clusters
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster"></a> [cluster](#input\_cluster) | contains the cluster configuration | `map(any)` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | contains the region | `string` | `null` | no |
-| <a name="input_resourcegroup"></a> [resourcegroup](#input\_resourcegroup) | contains the resourcegroup name | `string` | `null` | no |
+| <a name="input_resource_group"></a> [resource_group](#input\_resource_group) | contains the resourcegroup name | `string` | `null` | no |
 
 ## Outputs
 
