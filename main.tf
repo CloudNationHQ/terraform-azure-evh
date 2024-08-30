@@ -45,11 +45,13 @@ resource "azurerm_eventhub_namespace_authorization_rule" "auth" {
 }
 
 resource "azurerm_eventhub_authorization_rule" "auth" {
-  for_each = try(var.namespace.eventhubs.authorization_rules, {})
+  for_each = {
+    for ear in local.eventhub_authorization_rules : ear.key => ear
+  }
 
   name                = try(each.value.name, join("-", [var.naming.eventhub_authorization_rule, each.key]))
   namespace_name      = azurerm_eventhub_namespace.ns.name
-  eventhub_name       = azurerm_eventhub.evh[each.key].name
+  eventhub_name       = each.value.evh_name
   resource_group_name = var.namespace.resourcegroup
 
   listen = try(each.value.listen, false)
@@ -72,7 +74,7 @@ resource "azurerm_eventhub" "evh" {
 # consumer groups
 resource "azurerm_eventhub_consumer_group" "cg" {
   for_each = {
-    for cg in local.consumer_groups : "${cg.evh_key}.${cg.cg_key}" => cg
+    for cg in local.consumer_groups : cg.key => cg
   }
 
   name                = each.value.name

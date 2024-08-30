@@ -32,10 +32,30 @@ module "eventhub" {
       alerts = {
         partition_count   = 2
         message_retention = 1
+        authorization_rules = {
+          users = {
+            listen = true
+          }
+          admins = {
+            listen = true
+            send   = true
+            manage = true
+          }
+        }
       }
       metrics = {
         partition_count   = 4
         message_retention = 2
+        authorization_rules = {
+          users = {
+            listen = true
+          }
+          admins = {
+            listen = true
+            send   = true
+            manage = true
+          }
+        }
       }
     }
   }
