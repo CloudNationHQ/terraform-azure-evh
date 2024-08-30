@@ -79,7 +79,7 @@ resource "azurerm_eventhub_consumer_group" "cg" {
 
   name                = each.value.name
   namespace_name      = azurerm_eventhub_namespace.ns.name
-  eventhub_name       = azurerm_eventhub.evh[each.value.evh_key].name
+  eventhub_name       = each.value.evh_name
   resource_group_name = var.namespace.resourcegroup
   user_metadata       = each.value.user_metadata
 }

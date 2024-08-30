@@ -3,6 +3,7 @@ locals {
     for evh_key, evh in try(var.namespace.eventhubs, {}) : [
       for cg_key, cg in try(evh.consumer_groups, {}) : {
         key           = "${evh_key}.${cg_key}"
+        evh_name      = azurerm_eventhub.evh[evh_key].name
         name          = try(cg.name, join("-", [var.naming.eventhub_consumer_group, cg_key]))
         user_metadata = try(cg.user_metadata, null)
       }
