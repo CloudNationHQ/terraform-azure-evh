@@ -16,6 +16,12 @@ namespace = object({
     consumer_groups = optional(map(object({
       user_metadata = string
     })))
+    authorization_rules = optional(map(object({
+      name   = optional(string)
+      listen = optional(bool, false)
+      send   = optional(bool, false)
+      manage = optional(bool, false)
+    })))
   })))
 
   schema_groups = optional(map(object({

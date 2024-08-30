@@ -40,6 +40,16 @@ module "eventhub" {
             user_metadata = "system_metrics"
           }
         }
+        authorization_rules = {
+          users = {
+            listen = true
+          }
+          admins = {
+            listen = true
+            send   = true
+            manage = true
+          }
+        }
       }
     }
     schema_groups = {
