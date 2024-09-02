@@ -27,6 +27,22 @@ module "eventhub" {
     name           = module.naming.eventhub_namespace.name
     location       = module.rg.groups.demo.location
     resource_group = module.rg.groups.demo.name
+    eventhubs = {
+      datahub = {
+        partition_count   = 2,
+        message_retention = 1,
+        authorization_rules = {
+          users = {
+            listen = true
+          }
+          admins = {
+            listen = true
+            send   = true
+            manage = true
+          }
+        }
+      }
+    }
 
     authorization_rules = {
       users = {

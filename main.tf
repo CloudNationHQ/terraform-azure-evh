@@ -43,6 +43,32 @@ resource "azurerm_eventhub_namespace_authorization_rule" "auth" {
   manage = try(each.value.manage, false)
 }
 
+resource "azurerm_eventhub_authorization_rule" "auth" {
+  for_each = merge([
+    for evh_key, evh in try(var.namespace.eventhubs, {}) :
+    lookup(evh, "authorization_rules", null) != null ? {
+      for auth_key, auth in evh.authorization_rules : "${evh_key}-${auth_key}" => {
+        name     = try(auth.name, join("-", [var.naming.eventhub_authorization_rule, auth_key]))
+        evh_key  = evh_key
+        auth_key = auth_key
+        listen   = try(auth.listen, false)
+        send     = try(auth.send, false)
+        manage   = try(auth.manage, false)
+      }
+    } : {}
+  ]...)
+
+  name                = each.value.name
+  namespace_name      = azurerm_eventhub_namespace.ns.name
+  eventhub_name       = azurerm_eventhub.evh[each.value.evh_key].name
+  resource_group_name = var.namespace.resource_group
+
+  listen = each.value.listen
+  send   = each.value.send
+  manage = each.value.manage
+}
+
+
 # eventhubs
 resource "azurerm_eventhub" "evh" {
   for_each = try(var.namespace.eventhubs, {})

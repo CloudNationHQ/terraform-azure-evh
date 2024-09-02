@@ -60,6 +60,7 @@ End-to-end testing is not conducted on these modules, as they are individual com
 | [azurerm_eventhub_namespace_authorization_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_auth) | resource |
 | [azurerm_eventhub_namespace_schema_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) | resource |
 | [azurerm_eventhub_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_cluster) | resource |
+| [azurerm_eventhub_authorization_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) | resource |
 
 ## Inputs
 
