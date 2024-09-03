@@ -27,7 +27,7 @@ module "eventhub" {
     name           = module.naming.eventhub_namespace.name
     location       = module.rg.groups.demo.location
     resource_group = module.rg.groups.demo.name
-
+    zone_redundant = true
     eventhubs = {
       datahub = {
         partition_count   = 2,

@@ -11,6 +11,7 @@ resource "azurerm_eventhub_namespace" "ns" {
   network_rulesets              = try(var.namespace.network_rulesets, [])
   local_authentication_enabled  = try(var.namespace.local_authentication_enabled, false)
   public_network_access_enabled = try(var.namespace.public_network_access_enabled, true)
+  zone_redundant                = try(var.namespace.zone_redundant, false)
   tags                          = try(var.namespace.tags, var.tags, null)
 
   lifecycle {
