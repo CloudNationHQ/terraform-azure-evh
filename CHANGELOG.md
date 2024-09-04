@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v1.1.0...v1.1.1) (2024-09-04)
+
+
+### Bug Fixes
+
+* added zone_redundant  property for event hub namespace ([#40](https://github.com/CloudNationHQ/terraform-azure-evh/issues/40)) ([7f57ca9](https://github.com/CloudNationHQ/terraform-azure-evh/commit/7f57ca956e6517cfe211f8af1cf4149d38a1858b))
+
 ## [1.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v1.0.0...v1.1.0) (2024-09-02)
 
 
