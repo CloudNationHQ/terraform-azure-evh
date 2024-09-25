@@ -2,12 +2,12 @@ module "naming" {
   source  = "cloudnationhq/naming/azure"
   version = "~> 0.1"
 
-  suffix = ["demo", "prd"]
+  suffix = ["demo", "dev"]
 }
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   groups = {
     demo = {
@@ -19,7 +19,7 @@ module "rg" {
 
 module "eventhub" {
   source  = "cloudnationhq/evh/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   namespace = {
     name           = module.naming.eventhub_namespace.name

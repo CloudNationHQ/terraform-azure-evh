@@ -9,7 +9,6 @@ namespace = object({
   name           = string
   location       = string
   resource_group = string
-  zone_redundant = optional(string)
 
   eventhubs = optional(map(object({
     partition_count   = number
