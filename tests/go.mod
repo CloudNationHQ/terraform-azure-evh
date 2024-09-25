@@ -1,6 +1,6 @@
 module github.com/cloudnationhq/terraform-azure-evh
 
-go 1.23.0
+go 1.23.1
 
 require github.com/gruntwork-io/terratest v0.47.1
 
