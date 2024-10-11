@@ -31,53 +31,48 @@ End-to-end testing is not conducted on these modules, as they are individual com
 - Supports setting up various authorization rules for detailed access control.
 - Utilization of terratest for robust validation.
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.61 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.61 |
-
-## Modules
-
-| Name | Source |
-|------|--------|
-| [cluster](./modules/cluster) | resource |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0 |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [azurerm_eventhub](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub) | resource |
-| [azurerm_eventhub_consumer_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group) | resource |
-| [azurerm_eventhub_namespace](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) | resource |
-| [azurerm_eventhub_namespace_authorization_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_auth) | resource |
-| [azurerm_eventhub_namespace_schema_group](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) | resource |
-| [azurerm_eventhub_cluster](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_cluster) | resource |
-| [azurerm_eventhub_authorization_rule](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) | resource |
+| [azurerm_eventhub.evh](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub) | resource |
+| [azurerm_eventhub_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) | resource |
+| [azurerm_eventhub_consumer_group.cg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group) | resource |
+| [azurerm_eventhub_namespace.ns](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) | resource |
+| [azurerm_eventhub_namespace_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_authorization_rule) | resource |
+| [azurerm_eventhub_namespace_schema_group.sg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) | resource |
 
 ## Inputs
 
-| Name | Description | Type | Required |
-| :-- | :-- | :-- | :-- |
-| `namespace` | contains eventhub namespace configuration | object | yes |
-| `naming` | used for naming purposes | string | yes |
-| `location` | default azure region tho be used | string | no |
-| `resource_group` | default resource group to be used | string | no |
-| `tags` | tags to be added to the resources | map(string) | no |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_location"></a> [location](#input\_location) | default azure region to be used. | `string` | `null` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | contains namespace configuration | `any` | n/a | yes |
+| <a name="input_naming"></a> [naming](#input\_naming) | contains naming convention | `map(string)` | `{}` | no |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | default resource group to be used. | `string` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | tags to be added to the resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
-| :-- | :-- |
-| `namespace` | contains the eventhub namespace |
-| `eventhubs` | contains all eventhub config |
+|------|-------------|
+| <a name="output_eventhubs"></a> [eventhubs](#output\_eventhubs) | contains all eventhub config |
+| <a name="output_namespace"></a> [namespace](#output\_namespace) | contains the eventhub namespace |
+<!-- END_TF_DOCS -->
 
 ## Testing
 
