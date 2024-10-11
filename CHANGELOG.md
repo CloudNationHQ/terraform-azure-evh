@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.0.0...v2.1.0) (2024-10-11)
+
+
+### Features
+
+* auto generated docs and refine makefile ([#46](https://github.com/CloudNationHQ/terraform-azure-evh/issues/46)) ([935b425](https://github.com/CloudNationHQ/terraform-azure-evh/commit/935b425dcbd7349ea8c056bb36a8d829ae4c4766))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#45](https://github.com/CloudNationHQ/terraform-azure-evh/issues/45)) ([ac71105](https://github.com/CloudNationHQ/terraform-azure-evh/commit/ac7110554130c8c968a0dc7f531aa1f478bc1232))
+
 ## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v1.2.0...v2.0.0) (2024-09-25)
 
 
