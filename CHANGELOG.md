@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.1.0...v2.2.0) (2024-11-11)
+
+
+### Features
+
+* enhance testing with sequential, parallel modes and flags for exceptions and skip-destroy ([#48](https://github.com/CloudNationHQ/terraform-azure-evh/issues/48)) ([2f4e24c](https://github.com/CloudNationHQ/terraform-azure-evh/commit/2f4e24c7e8754ceb14285f0805ebd7833199fda4))
+
 ## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.0.0...v2.1.0) (2024-10-11)
 
 
