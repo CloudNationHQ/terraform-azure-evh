@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.3.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.2.0...v2.3.0) (2025-01-20)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#51](https://github.com/CloudNationHQ/terraform-azure-evh/issues/51)) ([8e882c6](https://github.com/CloudNationHQ/terraform-azure-evh/commit/8e882c692e5197ae9244d2267ce2468dba346f38))
+* **deps:** bump golang.org/x/crypto from 0.29.0 to 0.31.0 in /tests ([#54](https://github.com/CloudNationHQ/terraform-azure-evh/issues/54)) ([701c7be](https://github.com/CloudNationHQ/terraform-azure-evh/commit/701c7bed205cd8e218eb1fd2fad6a3d7737cc0e2))
+* **deps:** bump golang.org/x/net from 0.31.0 to 0.33.0 in /tests ([#55](https://github.com/CloudNationHQ/terraform-azure-evh/issues/55)) ([7acbbbf](https://github.com/CloudNationHQ/terraform-azure-evh/commit/7acbbbf66065541b69d2f696793b5ea5a249e9a0))
+* remove temporary files when deployment tests fails ([#52](https://github.com/CloudNationHQ/terraform-azure-evh/issues/52)) ([fa53193](https://github.com/CloudNationHQ/terraform-azure-evh/commit/fa5319371e9278b7c98ba31dbe28dec8fd10b1e0))
+
 ## [2.2.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.1.0...v2.2.0) (2024-11-11)
 
 
