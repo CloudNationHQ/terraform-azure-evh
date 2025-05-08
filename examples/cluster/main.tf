@@ -27,7 +27,7 @@ module "eventhubs" {
 }
 
 module "cluster" {
-  source  = "cloudnationhq/evh/azure/modules/cluster"
+  source  = "cloudnationhq/evh/azure//modules/cluster"
   version = "~> 2.0"
 
   resource_group = module.rg.groups.demo.name

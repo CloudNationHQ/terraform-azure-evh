@@ -8,10 +8,19 @@ resource "azurerm_eventhub_namespace" "ns" {
   minimum_tls_version           = try(var.namespace.minimum_tls_version, "1.2")
   auto_inflate_enabled          = try(var.namespace.auto_inflate_enabled, false)
   dedicated_cluster_id          = try(var.namespace.dedicated_cluster_id, null)
+  maximum_throughput_units      = try(var.namespace.maximum_throughput_units, null)
   network_rulesets              = try(var.namespace.network_rulesets, [])
   local_authentication_enabled  = try(var.namespace.local_authentication_enabled, false)
   public_network_access_enabled = try(var.namespace.public_network_access_enabled, true)
   tags                          = try(var.namespace.tags, var.tags, null)
+
+  dynamic "identity" {
+    for_each = try(var.namespace.identity, null) != null ? [var.namespace.identity] : []
+    content {
+      type         = try(identity.value.type, "SystemAssigned")
+      identity_ids = try(identity.value.identity_ids, null)
+    }
+  }
 
   lifecycle {
     ignore_changes = [
@@ -73,12 +82,29 @@ resource "azurerm_eventhub_authorization_rule" "auth" {
 resource "azurerm_eventhub" "evh" {
   for_each = try(var.namespace.eventhubs, {})
 
-  name                = try(each.value.name, join("-", [var.naming.eventhub, each.key]))
-  resource_group_name = var.namespace.resource_group
-  namespace_name      = azurerm_eventhub_namespace.ns.name
-  partition_count     = try(each.value.partition_count, 2)
-  message_retention   = try(each.value.message_retention, 1)
-  status              = try(each.value.status, "Active")
+  name              = try(each.value.name, join("-", [var.naming.eventhub, each.key]))
+  namespace_id      = try(azurerm_eventhub_namespace.ns.id, null)
+  partition_count   = try(each.value.partition_count, 2)
+  message_retention = try(each.value.message_retention, 1)
+  status            = try(each.value.status, "Active")
+
+  dynamic "capture_description" {
+    for_each = try(each.value.capture_description, null) != null ? [each.value.capture_description] : []
+    content {
+      enabled             = capture_description.value.enabled
+      encoding            = capture_description.value.encoding
+      interval_in_seconds = try(capture_description.value.interval_in_seconds, 300)
+      size_limit_in_bytes = try(capture_description.value.size_limit_in_bytes, 314572800)
+      skip_empty_archives = try(capture_description.value.skip_empty_archives, false)
+
+      destination {
+        name                = "EventHubArchive.AzureBlockBlob"
+        archive_name_format = capture_description.value.destination.archive_name_format
+        blob_container_name = capture_description.value.destination.blob_container_name
+        storage_account_id  = capture_description.value.destination.storage_account_id
+      }
+    }
+  }
 }
 
 # consumer groups

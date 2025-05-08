@@ -22,7 +22,7 @@ module "eventhub" {
   version = "~> 2.0"
 
   namespace = {
-    name           = module.naming.eventhub_namespace.name
+    name           = module.naming.eventhub_namespace.name_unique
     location       = module.rg.groups.demo.location
     resource_group = module.rg.groups.demo.name
   }
