@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.3.0...v2.4.0) (2025-05-08)
+
+
+### Features
+
+* add missing properties ([#60](https://github.com/CloudNationHQ/terraform-azure-evh/issues/60)) ([df0330f](https://github.com/CloudNationHQ/terraform-azure-evh/commit/df0330f95e0c0a2a5b86f5788f71224fc9b12486))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#57](https://github.com/CloudNationHQ/terraform-azure-evh/issues/57)) ([b721759](https://github.com/CloudNationHQ/terraform-azure-evh/commit/b721759bde80bb7f284644e8ededdd1c9926bbd0))
+* **deps:** bump golang.org/x/crypto from 0.31.0 to 0.35.0 in /tests ([#59](https://github.com/CloudNationHQ/terraform-azure-evh/issues/59)) ([f7f719a](https://github.com/CloudNationHQ/terraform-azure-evh/commit/f7f719ab198fa48de42c0f90c1e8f7baab3c4cd7))
+* **deps:** bump golang.org/x/net from 0.33.0 to 0.38.0 in /tests ([#61](https://github.com/CloudNationHQ/terraform-azure-evh/issues/61)) ([a1bb84a](https://github.com/CloudNationHQ/terraform-azure-evh/commit/a1bb84a22a34fc1b758795c959d6b6dc6d6e74b1))
+
 ## [2.3.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.2.0...v2.3.0) (2025-01-20)
 
 
