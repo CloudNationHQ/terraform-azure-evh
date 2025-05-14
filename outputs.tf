@@ -1,5 +1,5 @@
 output "namespace" {
-  description = "contains the eventhub namespace"
+  description = "contains all namespace config"
   value       = azurerm_eventhub_namespace.ns
 }
 

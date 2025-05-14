@@ -4,54 +4,162 @@ This Terraform module facilitates the setup and management of event hub resource
 
 ## Features
 
-- Simplifies managing multiple event hubs.
-- Supports multiple schema groups for consistent event data structuring.
-- Streamlines setup of multiple consumer groups.
-- Enables clustering with multiple namespaces.
-- Supports setting up various authorization rules for detailed access control.
-- Utilization of terratest for robust validation.
+Simplifies managing multiple event hubs.
+
+Supports multiple schema groups for consistent event data structuring.
+
+Streamlines setup of multiple consumer groups.
+
+Enables clustering with multiple namespaces.
+
+Supports setting up various authorization rules for detailed access control.
+
+Utilization of terratest for robust validation.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
+The following requirements are needed by this module:
+
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.0)
+
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0 |
+The following providers are used by this module:
+
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [azurerm_eventhub.evh](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub) | resource |
-| [azurerm_eventhub_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) | resource |
-| [azurerm_eventhub_consumer_group.cg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group) | resource |
-| [azurerm_eventhub_namespace.ns](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) | resource |
-| [azurerm_eventhub_namespace_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_authorization_rule) | resource |
-| [azurerm_eventhub_namespace_schema_group.sg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) | resource |
+The following resources are used by this module:
 
-## Inputs
+- [azurerm_eventhub.evh](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub) (resource)
+- [azurerm_eventhub_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) (resource)
+- [azurerm_eventhub_consumer_group.cg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group) (resource)
+- [azurerm_eventhub_namespace.ns](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) (resource)
+- [azurerm_eventhub_namespace_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_authorization_rule) (resource)
+- [azurerm_eventhub_namespace_schema_group.sg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) (resource)
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_location"></a> [location](#input\_location) | default azure region to be used. | `string` | `null` | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | contains namespace configuration | `any` | n/a | yes |
-| <a name="input_naming"></a> [naming](#input\_naming) | contains naming convention | `map(string)` | `{}` | no |
-| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | default resource group to be used. | `string` | `null` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | tags to be added to the resources | `map(string)` | `{}` | no |
+## Required Inputs
+
+The following input variables are required:
+
+### <a name="input_namespace"></a> [namespace](#input\_namespace)
+
+Description: Contains all eventhub configuration
+
+Type:
+
+```hcl
+object({
+    name                          = string
+    resource_group_name           = optional(string, null)
+    location                      = optional(string, null)
+    sku                           = optional(string, "Standard")
+    capacity                      = optional(number, 1)
+    minimum_tls_version           = optional(string, "1.2")
+    auto_inflate_enabled          = optional(bool, false)
+    dedicated_cluster_id          = optional(string, null)
+    maximum_throughput_units      = optional(number, null)
+    network_rulesets              = optional(list(any), [])
+    local_authentication_enabled  = optional(bool, false)
+    public_network_access_enabled = optional(bool, true)
+    tags                          = optional(map(string))
+    identity = optional(object({
+      type         = optional(string, "SystemAssigned")
+      identity_ids = optional(list(string), null)
+    }), null)
+    schema_groups = optional(map(object({
+      name                 = optional(string, null)
+      schema_type          = optional(string, "Avro")
+      schema_compatibility = optional(string, "Forward")
+    })), {})
+    authorization_rules = optional(map(object({
+      name   = optional(string, null)
+      listen = optional(bool, false)
+      send   = optional(bool, false)
+      manage = optional(bool, false)
+    })), {})
+    eventhubs = optional(map(object({
+      name              = optional(string, null)
+      partition_count   = optional(number, 2)
+      message_retention = optional(number, 1)
+      status            = optional(string, "Active")
+      capture_description = optional(object({
+        enabled             = bool
+        encoding            = string
+        interval_in_seconds = optional(number, 300)
+        size_limit_in_bytes = optional(number, 314572800)
+        skip_empty_archives = optional(bool, false)
+        destination = object({
+          archive_name_format = string
+          blob_container_name = string
+          storage_account_id  = string
+        })
+      }), null)
+      authorization_rules = optional(map(object({
+        name   = optional(string, null)
+        listen = optional(bool, false)
+        send   = optional(bool, false)
+        manage = optional(bool, false)
+      })), {})
+      consumer_groups = optional(map(object({
+        name          = optional(string, null)
+        user_metadata = optional(string, null)
+      })), {})
+    })), {})
+  })
+```
+
+## Optional Inputs
+
+The following input variables are optional (have default values):
+
+### <a name="input_location"></a> [location](#input\_location)
+
+Description: default azure region to be used.
+
+Type: `string`
+
+Default: `null`
+
+### <a name="input_naming"></a> [naming](#input\_naming)
+
+Description: contains naming convention
+
+Type: `map(string)`
+
+Default: `{}`
+
+### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
+
+Description: default resource group to be used.
+
+Type: `string`
+
+Default: `null`
+
+### <a name="input_tags"></a> [tags](#input\_tags)
+
+Description: tags to be added to the resources
+
+Type: `map(string)`
+
+Default: `{}`
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_eventhubs"></a> [eventhubs](#output\_eventhubs) | contains all eventhub config |
-| <a name="output_namespace"></a> [namespace](#output\_namespace) | contains the eventhub namespace |
+The following outputs are exported:
+
+### <a name="output_eventhubs"></a> [eventhubs](#output\_eventhubs)
+
+Description: contains all eventhub config
+
+### <a name="output_namespace"></a> [namespace](#output\_namespace)
+
+Description: contains all namespace config
 <!-- END_TF_DOCS -->
 
 ## Goals
