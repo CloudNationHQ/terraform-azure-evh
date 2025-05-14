@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.4.0...v3.0.0) (2025-05-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* The data structure changed, causing a recreate on existing resources.
+
+### Features
+
+* small refactor ([#65](https://github.com/CloudNationHQ/terraform-azure-evh/issues/65)) ([5eea02c](https://github.com/CloudNationHQ/terraform-azure-evh/commit/5eea02c39068261b2adfc4e31dcacfd16069bbe6))
+
 ## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.3.0...v2.4.0) (2025-05-08)
 
 
