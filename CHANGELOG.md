@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.0.0...v3.1.0) (2025-05-14)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#64](https://github.com/CloudNationHQ/terraform-azure-evh/issues/64)) ([04feafe](https://github.com/CloudNationHQ/terraform-azure-evh/commit/04feafea8ee6bfb2b03cd2041353ba1030ce461f))
+
 ## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.4.0...v3.0.0) (2025-05-14)
 
 
