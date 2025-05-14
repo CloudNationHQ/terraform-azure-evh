@@ -11,6 +11,11 @@
 
 * small refactor ([#65](https://github.com/CloudNationHQ/terraform-azure-evh/issues/65)) ([5eea02c](https://github.com/CloudNationHQ/terraform-azure-evh/commit/5eea02c39068261b2adfc4e31dcacfd16069bbe6))
 
+### Upgrade from v2.4.0 to v3.0.0:
+
+- Update module reference to: `version = "~> 3.0"`
+- The property and variable resource_group is renamed to resource_group_name
+
 ## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.3.0...v2.4.0) (2025-05-08)
 
 
