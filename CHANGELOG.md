@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.0.0...v3.1.0) (2025-11-12)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#64](https://github.com/CloudNationHQ/terraform-azure-evh/issues/64)) ([04feafe](https://github.com/CloudNationHQ/terraform-azure-evh/commit/04feafea8ee6bfb2b03cd2041353ba1030ce461f))
+* **deps:** bump github.com/ulikunitz/xz from 0.5.10 to 0.5.14 in /tests ([#70](https://github.com/CloudNationHQ/terraform-azure-evh/issues/70)) ([f4db693](https://github.com/CloudNationHQ/terraform-azure-evh/commit/f4db693460007df5b925d8d8c6cafbd2842549e0))
+* remove redundant null values ([#75](https://github.com/CloudNationHQ/terraform-azure-evh/issues/75)) ([f5d8f22](https://github.com/CloudNationHQ/terraform-azure-evh/commit/f5d8f22222bdfdcd0fc51d89f9bdf5301f3a5fcb))
+
 ## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v2.4.0...v3.0.0) (2025-05-14)
 
 
