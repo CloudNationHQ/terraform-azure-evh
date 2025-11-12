@@ -31,7 +31,15 @@ The following input variables are required:
 
 Description: contains the cluster configuration
 
-Type: `map(any)`
+Type:
+
+```hcl
+object({
+    name = string
+    sku  = string
+    tags = optional(map(string))
+  })
+```
 
 ## Optional Inputs
 
