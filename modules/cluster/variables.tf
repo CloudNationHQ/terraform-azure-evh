@@ -1,6 +1,10 @@
 variable "cluster" {
   description = "contains the cluster configuration"
-  type        = map(any)
+  type = object({
+    name = string
+    sku  = string
+    tags = optional(map(string))
+  })
 }
 
 variable "location" {
