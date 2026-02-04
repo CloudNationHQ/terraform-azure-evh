@@ -135,6 +135,16 @@ resource "azurerm_eventhub" "evh" {
       }
     }
   }
+
+  dynamic "retention_description" {
+    for_each = try(each.value.retention_description, null) != null ? [each.value.retention_description] : []
+
+    content {
+      cleanup_policy                    = retention_description.value.cleanup_policy
+      retention_time_in_hours           = retention_description.value.retention_time_in_hours
+      tombstone_retention_time_in_hours = retention_description.value.tombstone_retention_time_in_hours
+    }
+  }
 }
 
 # consumer groups

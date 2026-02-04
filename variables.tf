@@ -32,7 +32,7 @@ variable "namespace" {
     eventhubs = optional(map(object({
       name              = optional(string)
       partition_count   = optional(number, 2)
-      message_retention = optional(number, 1)
+      message_retention = optional(number)
       status            = optional(string, "Active")
       capture_description = optional(object({
         enabled             = bool
@@ -45,6 +45,11 @@ variable "namespace" {
           blob_container_name = string
           storage_account_id  = string
         })
+      }), null)
+      retention_description = optional(object({
+        cleanup_policy                    = string
+        retention_time_in_hours           = optional(number)
+        tombstone_retention_time_in_hours = optional(number)
       }), null)
       authorization_rules = optional(map(object({
         name   = optional(string)
@@ -67,6 +72,22 @@ variable "namespace" {
   validation {
     condition     = var.namespace.resource_group_name != null || var.resource_group_name != null
     error_message = "resource group name must be provided either in the config object or as a separate variable."
+  }
+
+  validation {
+    condition = alltrue([
+      for evh_key, evh in try(var.namespace.eventhubs, {}) :
+      evh.retention_description == null ? true : contains(["Delete", "Compact"], evh.retention_description.cleanup_policy)
+    ])
+    error_message = "cleanup_policy must be either 'Delete' or 'Compact'."
+  }
+
+  validation {
+    condition = alltrue([
+      for evh_key, evh in try(var.namespace.eventhubs, {}) :
+      !(evh.message_retention != null && evh.retention_description != null)
+    ])
+    error_message = "message_retention and retention_description are mutually exclusive. Use retention_description for advanced retention configuration, or message_retention for simple retention in days."
   }
 
 }
