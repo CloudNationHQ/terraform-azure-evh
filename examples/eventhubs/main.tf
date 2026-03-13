@@ -1,6 +1,6 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.25"
+  version = "~> 0.26"
 
   suffix = ["demo", "dev"]
 }
@@ -18,8 +18,7 @@ module "rg" {
 }
 
 module "eventhub" {
-  source  = "cloudnationhq/evh/azure"
-  version = "~> 3.0"
+  source = "../.."
 
   naming = local.naming
 
@@ -31,7 +30,7 @@ module "eventhub" {
     eventhubs = {
       alerts = {
         partition_count   = 2
-        message_retention = 1
+        message_retention = 2
         authorization_rules = {
           users = {
             listen = true
@@ -43,9 +42,26 @@ module "eventhub" {
           }
         }
       }
+      defaults = {
+        partition_count = 2
+      }
+      retention-delete = {
+        partition_count = 2
+        retention_description = {
+          cleanup_policy          = "Delete"
+          retention_time_in_hours = 168
+        }
+      }
+      retention-compact = {
+        partition_count = 2
+        retention_description = {
+          cleanup_policy                    = "Compact"
+          tombstone_retention_time_in_hours = 24
+        }
+      }
       metrics = {
         partition_count   = 4
-        message_retention = 2
+        message_retention = 3
         authorization_rules = {
           users = {
             listen = true

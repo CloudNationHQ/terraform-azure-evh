@@ -85,8 +85,13 @@ object({
     eventhubs = optional(map(object({
       name              = optional(string)
       partition_count   = optional(number, 2)
-      message_retention = optional(number, 1)
+      message_retention = optional(number)
       status            = optional(string, "Active")
+      retention_description = optional(object({
+        cleanup_policy                    = string
+        retention_time_in_hours           = optional(number)
+        tombstone_retention_time_in_hours = optional(number)
+      }), null)
       capture_description = optional(object({
         enabled             = bool
         encoding            = string
