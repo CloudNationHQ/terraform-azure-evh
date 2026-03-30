@@ -153,6 +153,14 @@ Default: `{}`
 
 The following outputs are exported:
 
+### <a name="output_authorization_rules"></a> [authorization\_rules](#output\_authorization\_rules)
+
+Description: contains all eventhub authorization rule config
+
+### <a name="output_consumer_groups"></a> [consumer\_groups](#output\_consumer\_groups)
+
+Description: contains all eventhub consumer group config
+
 ### <a name="output_eventhubs"></a> [eventhubs](#output\_eventhubs)
 
 Description: contains all eventhub config
@@ -160,6 +168,14 @@ Description: contains all eventhub config
 ### <a name="output_namespace"></a> [namespace](#output\_namespace)
 
 Description: contains all namespace config
+
+### <a name="output_namespace_authorization_rules"></a> [namespace\_authorization\_rules](#output\_namespace\_authorization\_rules)
+
+Description: contains all namespace authorization rule config
+
+### <a name="output_schema_groups"></a> [schema\_groups](#output\_schema\_groups)
+
+Description: contains all namespace schema group config
 <!-- END_TF_DOCS -->
 
 ## Goals
@@ -197,4 +213,4 @@ MIT Licensed. See [LICENSE](./LICENSE) for full details.
 
 - [Documentation](https://learn.microsoft.com/en-us/azure/event-hubs/)
 - [Rest Api](https://learn.microsoft.com/en-us/rest/api/eventhub/)
-- [Rest Api Specs](https://github.com/Azure/azure-rest-api-specs/tree/main/specification/eventhub/resource-manager/Microsoft.EventHub/stable/2024-01-01)
+- [Rest Api Specs](https://github.com/Azure/azure-rest-api-specs/tree/main/specification/eventhub/resource-manager)
