@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.2.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.1.0...v3.2.0) (2026-03-30)
+
+
+### Features
+
+* add missing outputs ([#83](https://github.com/CloudNationHQ/terraform-azure-evh/issues/83)) ([924d24b](https://github.com/CloudNationHQ/terraform-azure-evh/commit/924d24b499df8e8b3327d28aed065e2448ebd9b4))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#78](https://github.com/CloudNationHQ/terraform-azure-evh/issues/78)) ([7d63220](https://github.com/CloudNationHQ/terraform-azure-evh/commit/7d63220ac0ccc14d0ad1ced3a02d426e607bb634))
+* **deps:** bump golang.org/x/crypto from 0.36.0 to 0.45.0 in /tests ([#77](https://github.com/CloudNationHQ/terraform-azure-evh/issues/77)) ([59433cc](https://github.com/CloudNationHQ/terraform-azure-evh/commit/59433cc12b3ac72e89928f735bf0d5fb0cafb129))
+* enhance eventhub configuration with retention policies and validation ([#82](https://github.com/CloudNationHQ/terraform-azure-evh/issues/82)) ([2e72161](https://github.com/CloudNationHQ/terraform-azure-evh/commit/2e7216116e40331fd50d4abd401bd9f9e7fedb78))
+
 ## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.0.0...v3.1.0) (2025-11-12)
 
 
