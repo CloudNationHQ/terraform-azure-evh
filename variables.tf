@@ -32,8 +32,13 @@ variable "namespace" {
     eventhubs = optional(map(object({
       name              = optional(string)
       partition_count   = optional(number, 2)
-      message_retention = optional(number, 1)
+      message_retention = optional(number)
       status            = optional(string, "Active")
+      retention_description = optional(object({
+        cleanup_policy                    = string
+        retention_time_in_hours           = optional(number)
+        tombstone_retention_time_in_hours = optional(number)
+      }), null)
       capture_description = optional(object({
         enabled             = bool
         encoding            = string
@@ -67,6 +72,15 @@ variable "namespace" {
   validation {
     condition     = var.namespace.resource_group_name != null || var.resource_group_name != null
     error_message = "resource group name must be provided either in the config object or as a separate variable."
+  }
+
+  validation {
+    condition = alltrue(flatten([
+      for _, eventhub in try(var.namespace.eventhubs, {}) : [
+        try(eventhub.message_retention, null) == null || try(eventhub.retention_description, null) == null
+      ]
+    ]))
+    error_message = "eventhubs.message_retention and eventhubs.retention_description cannot be set together."
   }
 
 }
