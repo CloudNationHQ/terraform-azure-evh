@@ -138,10 +138,12 @@ resource "azurerm_eventhub" "evh" {
       skip_empty_archives = capture_description.value.skip_empty_archives
 
       destination {
-        name                = "EventHubArchive.AzureBlockBlob"
-        archive_name_format = capture_description.value.destination.archive_name_format
-        blob_container_name = capture_description.value.destination.blob_container_name
-        storage_account_id  = capture_description.value.destination.storage_account_id
+        name                        = "EventHubArchive.AzureBlockBlob"
+        archive_name_format         = capture_description.value.destination.archive_name_format
+        blob_container_name         = capture_description.value.destination.blob_container_name
+        storage_account_id          = capture_description.value.destination.storage_account_id
+        storage_authentication_id   = capture_description.value.destination.storage_authentication_id
+        storage_authentication_type = capture_description.value.destination.storage_authentication_type
       }
     }
   }

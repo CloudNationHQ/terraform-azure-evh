@@ -46,9 +46,11 @@ variable "namespace" {
         size_limit_in_bytes = optional(number, 314572800)
         skip_empty_archives = optional(bool, false)
         destination = object({
-          archive_name_format = string
-          blob_container_name = string
-          storage_account_id  = string
+          archive_name_format         = string
+          blob_container_name         = string
+          storage_account_id          = string
+          storage_authentication_id   = optional(string)
+          storage_authentication_type = optional(string)
         })
       }), null)
       authorization_rules = optional(map(object({
