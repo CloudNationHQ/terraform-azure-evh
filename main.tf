@@ -1,14 +1,11 @@
 # namespace
-resource "azurerm_eventhub_namespace" "ns" {
+resource "azurerm_eventhub_namespace" "this" {
   resource_group_name = coalesce(
-    lookup(
-      var.namespace, "resource_group_name", null
-    ), var.resource_group_name
+    var.namespace.resource_group_name, var.resource_group_name
   )
 
   location = coalesce(
-    lookup(var.namespace, "location", null
-    ), var.location
+    var.namespace.location, var.location
   )
 
   name                          = var.namespace.name
@@ -27,7 +24,7 @@ resource "azurerm_eventhub_namespace" "ns" {
   )
 
   dynamic "identity" {
-    for_each = try(var.namespace.identity, null) != null ? [var.namespace.identity] : []
+    for_each = var.namespace.identity != null ? { "this" = var.namespace.identity } : {}
 
     content {
       type         = identity.value.type
@@ -43,29 +40,27 @@ resource "azurerm_eventhub_namespace" "ns" {
 }
 
 # schema groups
-resource "azurerm_eventhub_namespace_schema_group" "sg" {
-  for_each = try(var.namespace.schema_groups, {})
+resource "azurerm_eventhub_namespace_schema_group" "this" {
+  for_each = var.namespace.schema_groups
 
   name = coalesce(
     each.value.name, each.key
   )
 
-  namespace_id         = azurerm_eventhub_namespace.ns.id
+  namespace_id         = azurerm_eventhub_namespace.this.id
   schema_type          = each.value.schema_type
   schema_compatibility = each.value.schema_compatibility
 }
 
 # authorization rules
-resource "azurerm_eventhub_namespace_authorization_rule" "auth" {
-  for_each = try(
-    var.namespace.authorization_rules, {}
-  )
+resource "azurerm_eventhub_namespace_authorization_rule" "this" {
+  for_each = var.namespace.authorization_rules
 
   name = coalesce(
-    each.value.name, join("-", [var.naming.eventhub_namespace_authorization_rule, each.key])
+    each.value.name, each.key
   )
 
-  namespace_name      = azurerm_eventhub_namespace.ns.name
+  namespace_name      = azurerm_eventhub_namespace.this.name
   resource_group_name = var.namespace.resource_group_name
 
   listen = each.value.listen
@@ -73,10 +68,9 @@ resource "azurerm_eventhub_namespace_authorization_rule" "auth" {
   manage = each.value.manage
 }
 
-resource "azurerm_eventhub_authorization_rule" "auth" {
+resource "azurerm_eventhub_authorization_rule" "this" {
   for_each = merge([
-    for evh_key, evh in try(var.namespace.eventhubs, {}) :
-    lookup(evh, "authorization_rules", null) != null ? {
+    for evh_key, evh in var.namespace.eventhubs : {
       for auth_key, auth in evh.authorization_rules : "${evh_key}-${auth_key}" => {
         evh_key  = evh_key
         auth_key = auth_key
@@ -84,15 +78,15 @@ resource "azurerm_eventhub_authorization_rule" "auth" {
         send     = auth.send
         manage   = auth.manage
         name = coalesce(
-          auth.name, join("-", [var.naming.eventhub_authorization_rule, auth_key])
+          auth.name, auth_key
         )
       }
-    } : {}
+    }
   ]...)
 
   name                = each.value.name
-  namespace_name      = azurerm_eventhub_namespace.ns.name
-  eventhub_name       = azurerm_eventhub.evh[each.value.evh_key].name
+  namespace_name      = azurerm_eventhub_namespace.this.name
+  eventhub_name       = azurerm_eventhub.this[each.value.evh_key].name
   resource_group_name = var.namespace.resource_group_name
 
   listen = each.value.listen
@@ -102,23 +96,21 @@ resource "azurerm_eventhub_authorization_rule" "auth" {
 
 
 # eventhubs
-resource "azurerm_eventhub" "evh" {
-  for_each = try(var.namespace.eventhubs, {})
+resource "azurerm_eventhub" "this" {
+  for_each = var.namespace.eventhubs
 
   name = coalesce(
-    each.value.name, join("-", [var.naming.eventhub, each.key])
+    each.value.name, each.key
   )
 
-  namespace_id = try(
-    azurerm_eventhub_namespace.ns.id, null
-  )
+  namespace_id = azurerm_eventhub_namespace.this.id
 
   partition_count   = each.value.partition_count
   message_retention = each.value.retention_description == null ? coalesce(each.value.message_retention, 1) : null
   status            = each.value.status
 
   dynamic "retention_description" {
-    for_each = each.value.retention_description != null ? [each.value.retention_description] : []
+    for_each = each.value.retention_description != null ? { "this" = each.value.retention_description } : {}
 
     content {
       cleanup_policy                    = retention_description.value.cleanup_policy
@@ -128,7 +120,7 @@ resource "azurerm_eventhub" "evh" {
   }
 
   dynamic "capture_description" {
-    for_each = try(each.value.capture_description, null) != null ? [each.value.capture_description] : []
+    for_each = each.value.capture_description != null ? { "this" = each.value.capture_description } : {}
 
     content {
       enabled             = capture_description.value.enabled
@@ -138,7 +130,7 @@ resource "azurerm_eventhub" "evh" {
       skip_empty_archives = capture_description.value.skip_empty_archives
 
       destination {
-        name                        = "EventHubArchive.AzureBlockBlob"
+        name                        = capture_description.value.destination.name
         archive_name_format         = capture_description.value.destination.archive_name_format
         blob_container_name         = capture_description.value.destination.blob_container_name
         storage_account_id          = capture_description.value.destination.storage_account_id
@@ -150,24 +142,23 @@ resource "azurerm_eventhub" "evh" {
 }
 
 # consumer groups
-resource "azurerm_eventhub_consumer_group" "cg" {
+resource "azurerm_eventhub_consumer_group" "this" {
   for_each = merge([
-    for evh_key, evh in try(var.namespace.eventhubs, {}) :
-    lookup(evh, "consumer_groups", null) != null ? {
+    for evh_key, evh in var.namespace.eventhubs : {
       for cg_key, cg in evh.consumer_groups : "${evh_key}-${cg_key}" => {
         evh_key       = evh_key
         cg_key        = cg_key
         user_metadata = cg.user_metadata
         name = coalesce(
-          cg.name, join("-", [var.naming.eventhub_consumer_group, cg_key])
+          cg.name, cg_key
         )
       }
-    } : {}
+    }
   ]...)
 
   name                = each.value.name
-  namespace_name      = azurerm_eventhub_namespace.ns.name
-  eventhub_name       = azurerm_eventhub.evh[each.value.evh_key].name
+  namespace_name      = azurerm_eventhub_namespace.this.name
+  eventhub_name       = azurerm_eventhub.this[each.value.evh_key].name
   resource_group_name = var.namespace.resource_group_name
   user_metadata       = each.value.user_metadata
 }

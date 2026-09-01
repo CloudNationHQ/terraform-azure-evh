@@ -23,24 +23,24 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (5.3.0)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azurerm_eventhub.evh](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub) (resource)
-- [azurerm_eventhub_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) (resource)
-- [azurerm_eventhub_consumer_group.cg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group) (resource)
-- [azurerm_eventhub_namespace.ns](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) (resource)
-- [azurerm_eventhub_namespace_authorization_rule.auth](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_authorization_rule) (resource)
-- [azurerm_eventhub_namespace_schema_group.sg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) (resource)
+- [azurerm_eventhub.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub) (resource)
+- [azurerm_eventhub_authorization_rule.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_authorization_rule) (resource)
+- [azurerm_eventhub_consumer_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_consumer_group) (resource)
+- [azurerm_eventhub_namespace.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace) (resource)
+- [azurerm_eventhub_namespace_authorization_rule.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_authorization_rule) (resource)
+- [azurerm_eventhub_namespace_schema_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/eventhub_namespace_schema_group) (resource)
 
 ## Required Inputs
 
@@ -58,14 +58,14 @@ object({
     resource_group_name           = optional(string)
     location                      = optional(string)
     sku                           = optional(string, "Standard")
-    capacity                      = optional(number, 1)
-    minimum_tls_version           = optional(string, "1.2")
+    capacity                      = optional(number)
+    minimum_tls_version           = optional(string)
     auto_inflate_enabled          = optional(bool, false)
     dedicated_cluster_id          = optional(string)
     maximum_throughput_units      = optional(number)
-    network_rulesets              = optional(list(any), [])
-    local_authentication_enabled  = optional(bool, false)
-    public_network_access_enabled = optional(bool, true)
+    network_rulesets              = optional(list(any))
+    local_authentication_enabled  = optional(bool)
+    public_network_access_enabled = optional(bool)
     tags                          = optional(map(string))
     identity = optional(object({
       type         = optional(string, "SystemAssigned")
@@ -78,15 +78,15 @@ object({
     })), {})
     authorization_rules = optional(map(object({
       name   = optional(string)
-      listen = optional(bool, false)
-      send   = optional(bool, false)
-      manage = optional(bool, false)
+      listen = optional(bool)
+      send   = optional(bool)
+      manage = optional(bool)
     })), {})
     eventhubs = optional(map(object({
       name              = optional(string)
       partition_count   = optional(number, 2)
       message_retention = optional(number)
-      status            = optional(string, "Active")
+      status            = optional(string)
       retention_description = optional(object({
         cleanup_policy                    = string
         retention_time_in_hours           = optional(number)
@@ -95,10 +95,11 @@ object({
       capture_description = optional(object({
         enabled             = bool
         encoding            = string
-        interval_in_seconds = optional(number, 300)
-        size_limit_in_bytes = optional(number, 314572800)
-        skip_empty_archives = optional(bool, false)
+        interval_in_seconds = optional(number)
+        size_limit_in_bytes = optional(number)
+        skip_empty_archives = optional(bool)
         destination = object({
+          name                        = optional(string, "EventHubArchive.AzureBlockBlob")
           archive_name_format         = string
           blob_container_name         = string
           storage_account_id          = string
@@ -108,9 +109,9 @@ object({
       }), null)
       authorization_rules = optional(map(object({
         name   = optional(string)
-        listen = optional(bool, false)
-        send   = optional(bool, false)
-        manage = optional(bool, false)
+        listen = optional(bool)
+        send   = optional(bool)
+        manage = optional(bool)
       })), {})
       consumer_groups = optional(map(object({
         name          = optional(string)
@@ -131,14 +132,6 @@ Description: default azure region to be used.
 Type: `string`
 
 Default: `null`
-
-### <a name="input_naming"></a> [naming](#input\_naming)
-
-Description: contains naming convention
-
-Type: `map(string)`
-
-Default: `{}`
 
 ### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
 
@@ -205,12 +198,7 @@ To update the module's documentation run `make doc`
 
 We welcome contributions from the community! Whether it's reporting a bug, suggesting a new feature, or submitting a pull request, your input is highly valued.
 
-For more information, please see our contribution [guidelines](./CONTRIBUTING.md). <br><br>
-
-<a href="https://github.com/cloudnationhq/terraform-azure-evh/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=cloudnationhq/terraform-azure-evh" />
-</a>
-
+For more information, please see our contribution [guidelines](./CONTRIBUTING.md).
 
 ## License
 
@@ -220,4 +208,3 @@ MIT Licensed. See [LICENSE](./LICENSE) for full details.
 
 - [Documentation](https://learn.microsoft.com/en-us/azure/event-hubs/)
 - [Rest Api](https://learn.microsoft.com/en-us/rest/api/eventhub/)
-- [Rest Api Specs](https://github.com/Azure/azure-rest-api-specs/tree/main/specification/eventhub/resource-manager)
