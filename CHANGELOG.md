@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.3.0...v4.0.0) (2026-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change causes recreates
+
+### Features
+
+* azurerm provider 5 upgrade ([#93](https://github.com/CloudNationHQ/terraform-azure-evh/issues/93)) ([00d25da](https://github.com/CloudNationHQ/terraform-azure-evh/commit/00d25da4621a11bc186dc1234d9432e2796b7e06))
+* **deps:** bump golang.org/x/crypto from 0.45.0 to 0.52.0 in /tests ([#90](https://github.com/CloudNationHQ/terraform-azure-evh/issues/90)) ([04e6b2e](https://github.com/CloudNationHQ/terraform-azure-evh/commit/04e6b2eea16b66bdf92088a6c18c9d4ab1d94d70))
+
 ## [3.3.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.2.0...v3.3.0) (2026-05-12)
 
 
