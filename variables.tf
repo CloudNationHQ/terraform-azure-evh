@@ -5,14 +5,14 @@ variable "namespace" {
     resource_group_name           = optional(string)
     location                      = optional(string)
     sku                           = optional(string, "Standard")
-    capacity                      = optional(number, 1)
-    minimum_tls_version           = optional(string, "1.2")
+    capacity                      = optional(number)
+    minimum_tls_version           = optional(string)
     auto_inflate_enabled          = optional(bool, false)
     dedicated_cluster_id          = optional(string)
     maximum_throughput_units      = optional(number)
-    network_rulesets              = optional(list(any), [])
-    local_authentication_enabled  = optional(bool, false)
-    public_network_access_enabled = optional(bool, true)
+    network_rulesets              = optional(list(any))
+    local_authentication_enabled  = optional(bool)
+    public_network_access_enabled = optional(bool)
     tags                          = optional(map(string))
     identity = optional(object({
       type         = optional(string, "SystemAssigned")
@@ -25,15 +25,15 @@ variable "namespace" {
     })), {})
     authorization_rules = optional(map(object({
       name   = optional(string)
-      listen = optional(bool, false)
-      send   = optional(bool, false)
-      manage = optional(bool, false)
+      listen = optional(bool)
+      send   = optional(bool)
+      manage = optional(bool)
     })), {})
     eventhubs = optional(map(object({
       name              = optional(string)
       partition_count   = optional(number, 2)
       message_retention = optional(number)
-      status            = optional(string, "Active")
+      status            = optional(string)
       retention_description = optional(object({
         cleanup_policy                    = string
         retention_time_in_hours           = optional(number)
@@ -42,10 +42,11 @@ variable "namespace" {
       capture_description = optional(object({
         enabled             = bool
         encoding            = string
-        interval_in_seconds = optional(number, 300)
-        size_limit_in_bytes = optional(number, 314572800)
-        skip_empty_archives = optional(bool, false)
+        interval_in_seconds = optional(number)
+        size_limit_in_bytes = optional(number)
+        skip_empty_archives = optional(bool)
         destination = object({
+          name                        = optional(string, "EventHubArchive.AzureBlockBlob")
           archive_name_format         = string
           blob_container_name         = string
           storage_account_id          = string
@@ -55,9 +56,9 @@ variable "namespace" {
       }), null)
       authorization_rules = optional(map(object({
         name   = optional(string)
-        listen = optional(bool, false)
-        send   = optional(bool, false)
-        manage = optional(bool, false)
+        listen = optional(bool)
+        send   = optional(bool)
+        manage = optional(bool)
       })), {})
       consumer_groups = optional(map(object({
         name          = optional(string)
@@ -78,19 +79,13 @@ variable "namespace" {
 
   validation {
     condition = alltrue(flatten([
-      for _, eventhub in try(var.namespace.eventhubs, {}) : [
-        try(eventhub.message_retention, null) == null || try(eventhub.retention_description, null) == null
+      for _, eventhub in var.namespace.eventhubs : [
+        eventhub.message_retention == null || eventhub.retention_description == null
       ]
     ]))
     error_message = "eventhubs.message_retention and eventhubs.retention_description cannot be set together."
   }
 
-}
-
-variable "naming" {
-  description = "contains naming convention"
-  type        = map(string)
-  default     = {}
 }
 
 variable "location" {
