@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v4.0.0...v4.1.0) (2026-10-20)
+
+
+### Features
+
+* **deps:** bump github.com/klauspost/compress in /tests ([#94](https://github.com/CloudNationHQ/terraform-azure-evh/issues/94)) ([1c32b43](https://github.com/CloudNationHQ/terraform-azure-evh/commit/1c32b439e09aef54497f0f56af94edab686bff3b))
+
 ## [4.0.0](https://github.com/CloudNationHQ/terraform-azure-evh/compare/v3.3.0...v4.0.0) (2026-09-01)
 
 
